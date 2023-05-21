@@ -1,0 +1,7 @@
+#files to ignore
+authorizeaccess.php
+dbconnection.php
+unauthorizedaccess.php
+
+*.zip
+*.sh
