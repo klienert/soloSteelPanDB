@@ -5,3 +5,5 @@ unauthorizedaccess.php
 
 *.zip
 *.sh
+*.gitignore
+*.DS_Store

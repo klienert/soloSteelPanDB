@@ -1,8 +1,8 @@
-## Solo Steel Pan Database
+# Solo Steel Pan Database
 
 ### Keith Lienert
 
-This site is the result of my research on published solo steel pan repertoire from the early 1980s to approx. 2016
+This site is the result of my research on published solo steel pan repertoire from the early 1980s to approx. 2016. 
 
 Tools/Tech used for this project include:
 - PHP
@@ -11,4 +11,5 @@ Tools/Tech used for this project include:
 - Bootstrap
 - AWS Beanstalk/RDS 
 
-(Solo Steel Pan DB)[http://steelpandb-env.eba-weuufvmr.us-east-2.elasticbeanstalk.com/]
+[Solo Steel Pan DB](http://steelpandb-env.eba-weuufvmr.us-east-2.elasticbeanstalk.com/)
+[Annotated Bibliography](docs/Klienert_AnnotatedBib_SoloSteelPan5.pdf)
