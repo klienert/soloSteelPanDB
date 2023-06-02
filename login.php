@@ -24,8 +24,8 @@
             
             $results = parameterizedQuery($dbc, $query, 's', $username) 
                 or trigger_error(mysqli_error($dbc), E_USER_ERROR);
-            
-            if (mysqli_num_rows($results) == 1) 
+
+            if (mysqli_num_rows($results) == 1)
             {
                 $row = mysqli_fetch_array($results);
                 if (password_verify($password, $row['password']))
@@ -129,6 +129,15 @@
               });
           }, false);
       })();
+
+      function togglePassword() {
+        var password_entry = document.getElementById("password");
+        if (password_entry.type === "password") {
+            password_entry.type = "text";
+        } else {
+            password_entry.type = "password";
+        }
+    }
   </script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
           integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

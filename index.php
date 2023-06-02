@@ -79,11 +79,9 @@
             mysqli_close($dbc);
     }
 
-
-    
-
-    //logged in?
+    // not logged in?
     elseif (isset($_SESSION['user_id']))
+    
     {
         $id = $_SESSION['user_id'];
 
@@ -156,7 +154,7 @@
             <?php
             mysqli_close($dbc);            
     }
-    
+        
     else  // not logged in
     {
     
@@ -167,7 +165,9 @@
         </div>
     <?php
     }
-    ?>       
+    
+    ?>
+    
 <?php
     require_once('footer.php');
 ?>
