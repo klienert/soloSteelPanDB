@@ -16,15 +16,76 @@
         
         // get username & pass (escape)
         $username = mysqli_real_escape_string($dbc, trim($_POST['username']));
-        $password = mysqli_real_escape_string($dbc, trim($_POST['password']));        
+        $password = mysqli_real_escape_string($dbc, trim($_POST['password']));       
         
         if (!empty($username) && !empty($password))
         {    
-            
-            $query = "SELECT * FROM user WHERE username = $username";
+            // query to see if the username is already in DB
+            $query = "SELECT * FROM user WHERE username = '$username'";            
 
             $results = mysqli_query($dbc, $query)
-                or trigger_error("Problem with querying the DB");                   
+                or trigger_error("Problem with querying the DB");
+
+            $num = mysqli_num_rows($results);            
+
+            if ($num == 0) // username not found, create one
+            {
+                $salted_hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+                $query = "INSERT INTO user (username, password) " 
+                    . "VALUES ('$username', '$salted_hashed_password')";
+
+                mysqli_query($dbc, $query) 
+                    or trigger_error('Problem inserting values into the DB.');
+                
+                // Direct to the login page...
+                echo "<p class='text-success'>Your new account for user <b>$username</b> has been successfully created.</p>"
+                    . "<p>You are now ready to <a href='login.php'>log in</a></p>";
+                
+                $show_sign_up_form = false;
+            }
+            else {
+                echo "<p class='text-danger'>An account already exists for this username: "
+                . "<span class='font-weight-bold'> ($username)</span></p>"
+                . "<p>Please try a different user name.</p>";
+            }
+            
+            /*
+
+
+                if (mysqli_fetch_column($results) >= 1) 
+            {
+                echo "<p class='text-danger'>An account already exists for this username: "
+                    . "<span class='font-weight-bold'> ($username)</span></p>"
+                    . "<p>Please try a different user name.</p>";
+            }
+            elseif (mysqli_fetch_row($results) == 0) 
+            {
+                $salted_hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+                $query = "INSERT INTO user (username, password) " 
+                    . "VALUES ('$username', '$salted_hashed_password')";
+
+                mysqli_query($dbc, $query) 
+                    or trigger_error('Problem inserting values into the DB.');
+                
+                // Direct to the login page...
+                echo "<p class='text-success'>Your new account for user <b>$username</b> has been successfully created.</p>"
+                    . "<p>You are now ready to <a href='login.php'>log in</a></p>";
+                
+                $show_sign_up_form = false;
+            }
+            else {
+                echo "<p class='text-danger'>There has been an error, please try again with a different user name.</p>";
+            }
+
+            /*
+            if (mysqli_num_rows($results) >= 1) // account found, no duplicate usernames allowed
+            {
+                echo "<p class='text-danger'>An account already exists for this username: "
+                    . "<span class='font-weight-bold'> ($username)</span></p>"
+                    . "<p>Please try a different user name.</p>";
+            }
 
             if (mysqli_num_rows($results) == 0 ) // account not found, create one and insert into DB
             {
@@ -44,10 +105,10 @@
             }
             else // account already exists
             {
-                echo "<p class='text-danger'>An account already exists for this username: "
-                    . "<span class='font-weight-bold'> ($username)</span></p>"
-                    . "<p>Please try a different user name.</p>";               
-            }            
+                echo "<p class='text-danger'>There has been an error, please try again with a different user name.</p>";
+            }
+            */
+
         }
         else 
         {
@@ -93,7 +154,9 @@
     </form>
     <?php
         endif;
-    ?>    
+
+    include('footer.php');
+?>
 
 <!-- JS for form -->
 <script>
@@ -125,8 +188,3 @@
         }
     }
 </script>
-
-
-<?php    
-    include('footer.php');
-?>
