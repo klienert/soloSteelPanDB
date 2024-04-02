@@ -11,5 +11,4 @@ Tools/Tech used for this project include:
 - Bootstrap
 - AWS Beanstalk/RDS 
 
-[Solo Steel Pan DB](http://steelpandb-env.eba-weuufvmr.us-east-2.elasticbeanstalk.com/)
 [Annotated Bibliography](docs/Klienert_AnnotatedBib_SoloSteelPan5.pdf)
